@@ -17,28 +17,25 @@ import configparser
 from ast import literal_eval
 
 ############################################################################
-#######################Configuring settings from config.ini#################
-config = configparser.ConfigParser()
-config.read('config.ini')
+#######################Configuring settings from docker env#################
 
 # Settings for the motion detector
-HISTORY = int(config['settings']['md_history'])
-THRESHOLD = int(config['settings']['md_threshold'])
+HISTORY = int(os.environ['MD_HISTORY'])
+THRESHOLD = int(os.environ['MD_THRESHOLD'])
 # Threshold number for movement to be detected
-BASE_MOVEMENT_THRESHOLD = int(config['settings']['movement_detection_threshold'])
+BASE_MOVEMENT_THRESHOLD = int(os.environ['MOVEMENT_DETECTION_THRESHOLD'])
 # Number of frames to detect objects in after movement is first detected
-OD_INTERVAL = int(config['settings']['od_frames'])
+OD_INTERVAL = int(os.environ['OD_FRAMES'])
 # Object detection model configuration
-# TODO: Add these settings into config.ini and use settings in program
-DETECTOR_MODEL = config['settings']['od_model']
-DETECTION_SPEED = config['settings']['od_speed']
-OBJECT_DETECTION_CONFIDENCE_THRESHOLD = config['settings']['od_confidence_threshold']
-IMAGE_PROCESSING_RESOLUTION = config['settings']['image_processing_resolution']
+DETECTOR_MODEL = os.environ['OD_MODEL']
+DETECTION_SPEED = os.environ['OD_SPEED']
+OBJECT_DETECTION_CONFIDENCE_THRESHOLD = os.environ['OD_CONFIDENCE_THRESHOLD']
+IMAGE_PROCESSING_RESOLUTION = os.environ['IMAGE_PROCESSING_RESOLUTION']
 #IP address of the camera
 # TODO: Unfuck this. split this value into username, password, and IP, then concat so we can grab the password securely
-CAMERA_IP_ADDRESS = config['settings']['camera_IP']
+CAMERA_IP_ADDRESS = os.environ['CAMERA_IP']
 # The address to send alerts to
-ALERT_ADDRESS = config['settings']['alert_address']
+ALERT_ADDRESS = os.environ['ALERT_ADDRESS']
 #############################################################################
 
 
@@ -164,8 +161,8 @@ def analyzeVideo():
 if __name__ == '__main__':
     freeze_support()  #Need this to be able to use MP in a standalone package
     print('Enter login information for the email to use for sending alerts...')
-    username = input('Email address for sending email: ')
-    password = input('Password:')
+    username = os.environ['SEND_USERNAME']
+    password = os.environ['SEND_PASSWORD']
 
     cap = cv2.VideoCapture(CAMERA_IP_ADDRESS)
 
