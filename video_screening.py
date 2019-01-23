@@ -45,8 +45,11 @@ def getFrames(q):
     :param q: multiprocessing.Queue object
     :return: access q from outside function
     """
+    print('getframes')
     cap = cv2.VideoCapture(CAMERA_IP_ADDRESS)
+	
     while True:
+        print('loopin')
         ret, frame = cap.read()
         if q.qsize() >= 5:
             q.get()
@@ -196,7 +199,9 @@ if __name__ == '__main__':
     print('Setting up process')
     stream_process = Process(target=getFrames, args=(frame_queue,))
     print('Starting process')
+    print(f'analyzing {CAMERA_IP_ADDRESS}')
     stream_process.start()
     print('Process started')
     print('Analyzing video...')
+
     analyzeVideo()
