@@ -1,6 +1,7 @@
 FROM python:3.6.8
 ADD video_screening.py /
-ADD models /
+ADD yolo.h5 /
+ADD yolo-tiny.h5 /
 RUN pip install image
 RUN pip install tensorflow
 RUN pip install opencv-python
