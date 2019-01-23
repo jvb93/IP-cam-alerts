@@ -134,7 +134,6 @@ def analyzeVideo():
     ret, frame = cap.read()
     start_time = time.time()
     while True:
-        cv2.imshow('image', frame)
         frame = frame_queue.get()
         frame = cv2.resize(frame, literal_eval(IMAGE_PROCESSING_RESOLUTION))
 
@@ -143,21 +142,12 @@ def analyzeVideo():
         #print(f'FPS: {fps}')
 
         font = cv2.FONT_HERSHEY_SIMPLEX
-        cv2.putText(frame, f'FPS: {int(fps)}', (0, 30), font, 1, (200, 255, 155), 2, cv2.LINE_AA)
         if detectMovement(frame):
             # annotate movement detection on the frame to be displayed
-            cv2.putText(frame, 'MOVEMENT', (0, 400), font, 3, (0, 0, 255), 5, cv2.LINE_AA)
-            cv2.putText(frame, 'DETECTED', (0, 500), font, 3, (0, 0, 255), 5, cv2.LINE_AA)
 
             # detecting the next OD_INTERVAL number of frames after motion detection
             print('Motion detected.')
             objectDetectionLoop(frame)
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            cap.release()
-            cv2.destroyAllWindows()
-            stream_process.terminate()
-            break
         #time.sleep(.5)
 
 if __name__ == '__main__':
