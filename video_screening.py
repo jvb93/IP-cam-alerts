@@ -172,11 +172,11 @@ if __name__ == '__main__':
     if DETECTOR_MODEL == 'yolo':
         print('YOLO chosen')
         detector.setModelTypeAsYOLOv3()
-        detector.setModelPath('yolo.h5')
+        detector.setModelPath('./models/yolo.h5')
     else:
         print('Tiny-YOLO chosen')
         detector.setModelTypeAsTinyYOLOv3()
-        detector.setModelPath('yolo-tiny.h5')
+        detector.setModelPath('./models/yolo-tiny.h5')
 
     print('Loading model')
     detector.loadModel(detection_speed=DETECTION_SPEED)
