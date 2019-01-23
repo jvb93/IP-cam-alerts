@@ -13,7 +13,6 @@ from PIL import Image
 import io
 import getpass
 from multiprocessing import Process, Queue, freeze_support
-import configparser
 from ast import literal_eval
 
 ############################################################################
