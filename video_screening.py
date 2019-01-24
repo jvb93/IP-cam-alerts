@@ -45,11 +45,9 @@ def getFrames(q):
     :param q: multiprocessing.Queue object
     :return: access q from outside function
     """
-    print('getframes')
     cap = cv2.VideoCapture(CAMERA_IP_ADDRESS)
-	
+    
     while True:
-        print('loopin')
         ret, frame = cap.read()
         if q.qsize() >= 5:
             q.get()
@@ -153,7 +151,6 @@ def analyzeVideo():
 
 if __name__ == '__main__':
     freeze_support()  #Need this to be able to use MP in a standalone package
-    print('Enter login information for the email to use for sending alerts...')
     username = os.environ['SEND_USERNAME']
     password = os.environ['SEND_PASSWORD']
 
