@@ -120,7 +120,7 @@ def objectDetectionLoop(frame):
         od_start_time = time.time()
         total_detections.append(detection_list)
         print(f'Detection  on frame #{i+1}')
-        if 'person' in detection_list:  # If there were any objects detected in that frame we shrink it and add it to the list
+        if 'car' in detection_list:  # If there were any objects detected in that frame we shrink it and add it to the list
             image_list.append(detection_image)
     # If any images were added to the list, that means things were detected, and you should send the alert
     if image_list:
@@ -139,15 +139,16 @@ def analyzeVideo():
 
         fps = 1 / (time.time() - start_time)
         start_time = time.time()
-        #print(f'FPS: {fps}')
+        print(f'FPS: {fps}')
 
-        font = cv2.FONT_HERSHEY_SIMPLEX
         if detectMovement(frame):
-            # annotate movement detection on the frame to be displayed
-
-            # detecting the next OD_INTERVAL number of frames after motion detection
             print('Motion detected.')
             objectDetectionLoop(frame)
+        if False:
+            cap.release()
+            cv2.destroyAllWindows()
+            stream_process.terminate()
+            break
         #time.sleep(.5)
 
 if __name__ == '__main__':
@@ -189,7 +190,6 @@ if __name__ == '__main__':
     print('Setting up process')
     stream_process = Process(target=getFrames, args=(frame_queue,))
     print('Starting process')
-    print(f'analyzing {CAMERA_IP_ADDRESS}')
     stream_process.start()
     print('Process started')
     print('Analyzing video...')

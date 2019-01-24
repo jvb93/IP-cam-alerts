@@ -6,3 +6,5 @@
 /__pycache__
 /venv
 docker-compose\.yml
+
+video_screening_hardcoded\.py
